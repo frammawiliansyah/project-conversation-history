@@ -58,7 +58,7 @@ Once the server is running, visit `http://localhost:3000` in your browser. You c
 
 You can view the deployed version of this project here:
 
-[Live Demo](https://project-conversation-history.framma.id)
+[Live Demo](https://conversation-history-project.framma.id)
 
 ## Contributing
 
