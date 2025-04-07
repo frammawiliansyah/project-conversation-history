@@ -1,0 +1,11 @@
+<% content_for :title, "New Project" %>
+
+<div class="w-full">
+    <div class="py-2 flex justify-between">
+        <%= link_to "Back", projects_path, class: "rounded bg-indigo-100 px-5 py-3 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75" %>
+        <h1 class="capitalize font-semibold text-4xl">Add project</h1>
+    </div>
+
+    <hr class="my-2">
+    <%= render "form", project: @project %>
+</div>

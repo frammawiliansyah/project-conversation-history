@@ -1,0 +1,16 @@
+<div class="mx-auto max-w-prose text-center">
+    <h1 class="font-bold text-gray-900 text-5xl">
+        Welcome to
+        <strong class="text-indigo-600"> Conversation History </strong>
+        Project
+    </h1>
+    <p class="mt-4 text-base text-pretty text-gray-700">
+        <% if @current_user %>
+        Hallo <strong class="text-indigo-600"><%= @current_user.name.capitalize %></strong>! Let’s start<br>
+        monitoring your project tracking, comments, and status changes.
+        <% else %>
+        This web-based project is built to monitor project tracking, comments,<br>
+        and status changes for each project.
+        <% end %>
+    </p>
+</div>

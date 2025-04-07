@@ -1,0 +1,31 @@
+<div class="mx-auto max-w-prose">
+    <%= form_with url: signup_sessions_path, method: :post, data: { turbo: false } do |form| %>
+    <div class="py-2">
+        <label for="name">
+            <span class="text-sm font-medium text-gray-700">Name :</span>
+            <%= form.text_field :name, required: true, autofocus: true, class: "capitalize mt-0.5 w-full rounded border-gray-300 shadow-sm p-2" %>
+        </label>
+    </div>
+    <div class="py-2">
+        <label for="email_address">
+            <span class="text-sm font-medium text-gray-700">Email Address :</span>
+            <%= form.email_field :email_address, required: true, autofocus: true, class: "lowercase mt-0.5 w-full rounded border-gray-300 shadow-sm p-2" %>
+        </label>
+    </div>
+    <div class="py-2">
+        <label for="password">
+            <span class="text-sm font-medium text-gray-700">Password :</span>
+            <%= form.password_field :password, required: true, autofocus: true, class: "mt-0.5 w-full rounded border-gray-300 shadow-sm p-2" %>
+        </label>
+    </div>
+    <div class="py-2">
+        <label for="password_confirm">
+            <span class="text-sm font-medium text-gray-700">Confirm Password :</span>
+            <%= form.password_field :password_confirm, required: true, autofocus: true, class: "mt-0.5 w-full rounded border-gray-300 shadow-sm p-2" %>
+        </label>
+    </div>
+    <div class="py-4 flex justify-end">
+        <%= form.submit "Register Account", class: "rounded bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700" %>
+    </div>
+    <% end %>
+</div>

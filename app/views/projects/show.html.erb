@@ -1,0 +1,58 @@
+<% content_for :title, @project.title %>
+
+<div class="flex w-full items-start">
+    <div class="grow mr-1">
+        <div class="py-2 flex justify-between">
+            <%= link_to "Back", projects_path, class: "rounded bg-indigo-100 px-5 py-3 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75" %>
+            <% if @project.user_id == @current_user.id %>
+            <%= link_to "Edit project", edit_project_path(@project), class: "capitalize rounded bg-indigo-100 px-5 py-3 text-sm font-medium text-indigo-600 transition hover:text-indigo-600/75" %>
+            <% end %>
+        </div>
+        <hr class="my-2">
+        <h1 class="capitalize font-bold text-3xl py-2"><%= @project.title %></h1>
+        <div class="py-2">
+            <span class="rounded bg-purple-100 px-3 py-1 text-sm whitespace-nowrap text-purple-700 font-semibold"><%= @project.project_status.name %></span>
+            <span class="rounded bg-purple-100 px-3 py-1 text-sm whitespace-nowrap text-purple-700 font-semibold"><%= @project.created_at %></span>
+            <span class="p-1 text-xs whitespace-nowrap">by <span class="capitalize font-bold text-indigo-700"><%= @project.user.name.capitalize %></span></span>
+        </div>
+        <p class="whitespace-pre-line text-base py-2"><%= @project.content %></p>
+        <hr class="my-2">
+        <%= form_with url: comment_project_path(@project), method: :post, data: { turbo: false } do |form| %>
+        <div class="py-2 text-right">
+            <%= form.text_area :content, required: true, autofocus: true, rows: 5, class: "mt-0.5 w-full rounded border border-gray-300 shadow-sm p-2" %>
+            <%= form.submit "Submit Comment", class: "rounded bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700" %>
+        </div>
+        <% end %>
+        <div class="flow-root">
+            <div class="-my-3 divide-y divide-gray-200 text-sm">
+                <% @comments.each_with_index do |comment, index| %>
+                <div class="grid py-3 grid-cols-1 gap-1">
+                    <div class="capitalize font-semibold text-gray-900"><%= comment.user.name.capitalize %></div>
+                    <div class="whitespace-pre-line text-gray-700 col-span-2"><%= comment.content %></div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="flex-none ml-1">
+        <%= form_with(model: @project, class: "contents", data: { turbo: false }) do |form| %>
+        <div class="flex py-2">
+            <%= form.select :project_status_id, options_for_select(@project_statuses.pluck(:name, :id), @project.project_status_id), {}, disabled: @project.is_final?, class: "block w-full rounded border border-gray-400 px-3 py-2.5 shadow-sm capitalize mr-1" %>
+            <%= form.submit "Change Status", class: "capitalize rounded bg-indigo-600 px-4 text-sm font-medium text-white transition hover:bg-indigo-700 ml-1" unless @project.is_final? %>
+        </div>
+        <% end %>
+        <hr class="my-2">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y-2 divide-gray-200">
+                <tbody class="divide-y divide-gray-200">
+                    <% @project_histories.each_with_index do |history, index| %>
+                    <tr class="*:text-gray-900 *:first:font-medium">
+                        <td class="px-3 py-2 whitespace-nowrap capitalize"><%= history.user.name.capitalize %></td>
+                        <td class="px-3 py-2 whitespace-nowrap text-right"><%= history.metadata['product_status'] %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
